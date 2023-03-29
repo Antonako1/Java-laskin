@@ -292,7 +292,6 @@ public class Laskin implements ActionListener{
             lastSqrt = false;
         } 
         lastEqual = true;
-        System.out.println(calculation);
         results.setText("Results: " + calculation);
     }
     public void actionPerformed(ActionEvent e) {
@@ -330,8 +329,6 @@ public class Laskin implements ActionListener{
             calculation = 0;
             laskuToimitusNumber = 0;
             results.setText("0");
-        }else{
-            System.out.println("ok");
         }
         laskuToimitusNumber = Integer.parseInt(laskuToimitusString);
         results.setText(laskuToimitusNumber + "");
@@ -351,5 +348,4 @@ public class Laskin implements ActionListener{
             equal();
         }
     }
-    // 7-8h
 }

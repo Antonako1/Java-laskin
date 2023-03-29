@@ -2,19 +2,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-// import javax.lang.model.util.SimpleAnnotationValueVisitor14;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-// import javax.swing.border.Border;
-// import javax.swing.event.AncestorEvent;
-// import javax.swing.*;
-// import java.awt.*;
-// import java.awt.event.*;
-// import javax.swing.JSplitPane;
 
 public class Laskin implements ActionListener{
 
@@ -26,10 +18,8 @@ public class Laskin implements ActionListener{
     static double calculation = 0;
     static boolean firstT = true;
     static boolean lastEqual = false;
-    // static double prevCalculation = 0;
     static double allCalc = 0;
     static boolean equals = false;
-
     static boolean lastPlus = false;
     static boolean lastMinus = false;
     static boolean lastMultiply = false;
@@ -38,10 +28,10 @@ public class Laskin implements ActionListener{
     static boolean lastSqrt = false;
     static boolean prevClear = false;
 
+    // Swing GUI juttuja
     static JFrame frame;
     static JPanel panel;
     static JPanel panel2;
-
     static JButton button1;
     static JButton button2;
     static JButton button3;
@@ -65,6 +55,7 @@ public class Laskin implements ActionListener{
     static JButton buttonEquals;
     static JLabel results;
     public Laskin() {
+        // Lisää swing GUI juttuja
         frame = new JFrame();
         button1 = new JButton("1");
         button1.addActionListener(this);
@@ -133,11 +124,9 @@ public class Laskin implements ActionListener{
         panel2 = new JPanel();
         panel2.setLayout(new GridLayout(0, 1));
 
-        // 🦘
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(5, 4));
-
 
         panel2.add(results);
 
@@ -328,6 +317,7 @@ public class Laskin implements ActionListener{
             laskuToimitusString += "0";
         } else if(e.getSource() == buttonDot) {
             // laskuToimitusString += ".";
+            // ei toimi en jaksa saada toimiin
         } else if(e.getSource() == buttonBack) {
             if(laskuToimitusString.length() <= 1){
                 results.setText(calculation + "\n Error");

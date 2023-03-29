@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,6 +121,8 @@ public class Laskin implements ActionListener{
         buttonEquals.addActionListener(this);
 
         results = new JLabel("");
+        // Jos ei toimi importtaa FONT.
+        results.setFont(new Font("Serif", Font.PLAIN, 16));
 
         panel2 = new JPanel();
         panel2.setLayout(new GridLayout(0, 1));
@@ -156,7 +159,7 @@ public class Laskin implements ActionListener{
         panel.add(buttonDot);
         panel.add(buttonEquals);
 
-        frame.add(panel, BorderLayout.PAGE_END);
+        frame.add(panel, BorderLayout.CENTER);
         frame.add(panel2, BorderLayout.PAGE_START);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Laskin");

@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.lang.model.util.SimpleAnnotationValueVisitor14;
+// import javax.lang.model.util.SimpleAnnotationValueVisitor14;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,28 +14,29 @@ import javax.swing.JPanel;
 // import javax.swing.*;
 // import java.awt.*;
 // import java.awt.event.*;
-import javax.swing.JSplitPane;
+// import javax.swing.JSplitPane;
 
 public class Laskin implements ActionListener{
 
     static int count = 0;
     static String laskuToimitusString = "";
-    static float laskuToimitusNumber = 0;
-    static float currentNumber = 0;
-    static float previousNumber[] = {0};
-    static float calculation = 0;
+    static double laskuToimitusNumber = 0;
+    static double previousNumber[] = {0};
+    static double currentNumber[] = {0};
+    static double calculation = 0;
     static boolean firstT = true;
     static boolean lastEqual = false;
-    // static float prevCalculation = 0;
-    static boolean lastPlus = false;
-    static float allCalc = 0;
+    // static double prevCalculation = 0;
+    static double allCalc = 0;
     static boolean equals = false;
-    static boolean plus = false;
-    static boolean minus = false;
-    static boolean multiply = false;
-    static boolean exponent = false;
-    static boolean divide = false;
-    static boolean sqrt = false;
+
+    static boolean lastPlus = false;
+    static boolean lastMinus = false;
+    static boolean lastMultiply = false;
+    static boolean lastExponent = false;
+    static boolean lastDivide = false;
+    static boolean lastSqrt = false;
+    static boolean prevClear = false;
 
     static JFrame frame;
     static JPanel panel;
@@ -94,13 +95,12 @@ public class Laskin implements ActionListener{
 
         button0 = new JButton("0");
         button0.addActionListener(this);
-
         
         buttonClear = new JButton("C");
         buttonClear.addActionListener(this);
         
         buttonBack = new JButton("<=");
-        buttonClear.addActionListener(this);
+        buttonBack.addActionListener(this);
 
         buttonEmpty = new JButton(" ");
         
@@ -130,11 +130,10 @@ public class Laskin implements ActionListener{
 
         results = new JLabel("");
 
-        // Panel on top
         panel2 = new JPanel();
         panel2.setLayout(new GridLayout(0, 1));
 
-        // Panel way down under🦘
+        // 🦘
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(5, 4));
@@ -179,55 +178,134 @@ public class Laskin implements ActionListener{
         new Laskin();
     }
 
-
-    public void plus(float x){
+    public void plus(double x){
         if(lastEqual == true){
             x = 0;
         }
-        count++;
-
-        System.out.println(x + " + "+ previousNumber[0]);
-
-        calculation = x + previousNumber[0];
-        results.setText(x + " + " + previousNumber[0]);
+        currentNumber[0] = x;
+        calculation = currentNumber[0] + previousNumber[0];
+        results.setText(currentNumber[0] + " + " + previousNumber[0]);
         laskuToimitusString = "0";
         if (firstT == true) {
-            previousNumber[0] = x;
+            previousNumber[0] = currentNumber[0];
         } else {
             previousNumber[0] = calculation;
         }
         firstT = false;
         lastEqual = false;
         lastPlus = true;
-        System.out.println(x + " + "+ previousNumber[0]);
     }
-    public void minus(float x){}
-    public void multiply(float x){}
-    public void exponent(float x){}
-    public void divide(float x){}
-    public void sqrt(float x){}
+    public void minus(double x){
+        if(lastEqual == true){
+            x = 0;
+        }
+        currentNumber[0] = x;
+        calculation = previousNumber[0] - currentNumber[0];
+        results.setText(currentNumber[0] + " - " + previousNumber[0]);
+        laskuToimitusString = "0";
+        if (firstT == true) {
+            previousNumber[0] = currentNumber[0];
+        } else {
+            previousNumber[0] = calculation;
+        }
+        firstT = false;
+        lastEqual = false;
+        lastMinus = true;
+    }
+    public void multiply(double x){
+        if(lastEqual == true){
+            x = 1;
+        }
+        currentNumber[0] = x;
+        calculation = currentNumber[0] * previousNumber[0];
+        results.setText(currentNumber[0] + " * " + previousNumber[0]);
+        laskuToimitusString = "0";
+        if (firstT == true) {
+            previousNumber[0] = currentNumber[0];
+        } else {
+            previousNumber[0] = calculation;
+        }
+        firstT = false;
+        lastEqual = false;
+        lastMultiply = true;
+    }
+    public void exponent(double x){
+        if(lastEqual == true){
+            x = 1;
+        }
+        currentNumber[0] = x;
+        calculation = Math.pow(previousNumber[0], currentNumber[0]);
+        results.setText(currentNumber[0] + " ^ " + previousNumber[0]);
 
-    // Function for equal button
+        laskuToimitusString = "0";
+        if (firstT == true) {
+            previousNumber[0] = currentNumber[0];
+        } else {
+            previousNumber[0] = calculation;
+        }
+        firstT = false;
+        lastEqual = false;
+        lastExponent = true;
+    }
+    public void divide(double x){
+        if(lastEqual == true){
+            x = 1;
+        }
+        currentNumber[0] = x;
+        calculation = previousNumber[0] / currentNumber[0];
+        results.setText(currentNumber[0] + " / " + previousNumber[0]);
+        laskuToimitusString = "0";
+        if (firstT == true) {
+            previousNumber[0] = currentNumber[0];
+        } else {
+            previousNumber[0] = calculation;
+        }
+        firstT = false;
+        lastEqual = false;
+        lastDivide = true;
+    }
+    public void sqrt(double x){
+        if(lastEqual == true){
+            x = 1;
+        }
+        currentNumber[0] = x;
+        calculation = Math.sqrt(currentNumber[0]);
+        results.setText("√" + currentNumber[0]);
+        laskuToimitusString = "0";
+        if (firstT == true) {
+            previousNumber[0] = currentNumber[0];
+        } else {
+            previousNumber[0] = calculation;
+        }
+        firstT = false;
+        lastEqual = false;
+        lastSqrt = true;
+    }
     public void equal(){
+        if(lastPlus == true){
+            plus(laskuToimitusNumber);
+            lastPlus = false;
+        } else if(lastMinus == true) {
+            minus(laskuToimitusNumber);
+            lastMinus = false;
+        }  else if(lastMultiply == true) {
+            multiply(laskuToimitusNumber);
+            lastMultiply = false;
+        }  else if(lastExponent == true) {
+            exponent(laskuToimitusNumber);
+            lastExponent = false;
+        }  else if(lastDivide == true) {
+            divide(laskuToimitusNumber);
+            lastDivide = false;
+        }  else if(lastSqrt == true) {
+            sqrt(laskuToimitusNumber);
+            lastSqrt = false;
+        } 
         lastEqual = true;
         System.out.println(calculation);
         results.setText("Results: " + calculation);
     }
-
-    public void resetAll(){
-        equals = false;
-        plus = false;
-        minus = false;
-        multiply = false;
-        exponent = false;
-        divide = false;
-        sqrt = false;
-    }
     public void actionPerformed(ActionEvent e) {
-        if(count >= 2 && lastPlus == false){
-            count = 0;
-            resetAll();
-        }
         if(e.getSource() == button1){
             laskuToimitusString += "1";  
         } else if(e.getSource() == button2) {
@@ -249,42 +327,37 @@ public class Laskin implements ActionListener{
         } else if(e.getSource() == button0) {
             laskuToimitusString += "0";
         } else if(e.getSource() == buttonDot) {
-            System.out.println("null");
+            // laskuToimitusString += ".";
         } else if(e.getSource() == buttonBack) {
-            System.out.println("null");
+            if(laskuToimitusString.length() <= 1){
+                results.setText(calculation + "\n Error");
+            }
+            laskuToimitusString = laskuToimitusString.substring(0,laskuToimitusString.length()-1);
         } else if(e.getSource() == buttonClear) {
+            previousNumber[0] = 0;
+            currentNumber[0] = 0;
             calculation = 0;
             laskuToimitusNumber = 0;
             results.setText("0");
+        }else{
+            System.out.println("ok");
         }
         laskuToimitusNumber = Integer.parseInt(laskuToimitusString);
         results.setText(laskuToimitusNumber + "");
-        if(laskuToimitusString.length() >= 2){
-            plus = false;
-        }
-        if(e.getSource() == buttonPlus || plus == true ){
-            plus = true;
+        if(e.getSource() == buttonPlus ){
             plus(laskuToimitusNumber);
-        }else if(e.getSource() == buttonMinus || minus == true){
-            minus = true;
+        }else if(e.getSource() == buttonMinus){
             minus(laskuToimitusNumber);
-        }else if(e.getSource() == buttonMultiply || multiply == true){
-            multiply = true;
+        }else if(e.getSource() == buttonMultiply){
             multiply(laskuToimitusNumber);
-        }else if(e.getSource() == buttonExponention || exponent == true){
-            exponent = true;
+        }else if(e.getSource() == buttonExponention){
             exponent(laskuToimitusNumber);
-        }else if(e.getSource() == buttonDivide || divide == true){
-            divide = true;
+        }else if(e.getSource() == buttonDivide){
             divide(laskuToimitusNumber);
-        }else if(e.getSource() == buttonSQRT || sqrt == true){
-            sqrt = true;
+        }else if(e.getSource() == buttonSQRT){
             sqrt(laskuToimitusNumber);
         }else if(e.getSource() == buttonEquals){
             equal();
         }
-    }
-    public void showAnswer(float answer){
-        System.out.println(answer);
     }
 }

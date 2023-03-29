@@ -161,6 +161,7 @@ public class Laskin implements ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Laskin");
         frame.setSize(300, 400);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     public static void main(String[] args) {
@@ -350,4 +351,5 @@ public class Laskin implements ActionListener{
             equal();
         }
     }
+    // 7-8h
 }

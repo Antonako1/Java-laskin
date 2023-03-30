@@ -296,24 +296,24 @@ public class Laskin implements ActionListener{
             sqrt(laskuToimitusNumber);
             lastSqrt = false;
         } else if(lastDot == true) {
+
             String noll = "";
             int nollN = 0;
             dotCount = dotCount - 2;
+            if(dotCount == 0){
+                results.setText("Results: " + calculation + " Error");
+            }
             for(int i = 0; i<dotCount;i++){
                 noll += "0";
-                System.out.println(noll);
             }
             nollN = Integer.parseInt(noll);
-            System.out.println(nollN);
             int numberNoll = 10;
             for(int i = 0; i<noll.length();i++){
-                System.out.println(noll.length());
                 numberNoll = numberNoll * 10;
             }
 
             laskuToimitusNumber = Integer.parseInt(laskuToimitusString);
             laskuToimitusNumber = laskuToimitusNumber / numberNoll;
-            System.out.println(laskuToimitusNumber +" "+ laskuToimitusNumber +" "+ noll.length());
             currentNumber[0] = laskuToimitusNumber;
             calculation = currentNumber[0];
             lastDot = false;

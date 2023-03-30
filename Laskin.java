@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Laskin implements ActionListener{
-
+    // Alustus
     static int count = 0;
     static String laskuToimitusString = "";
     static double laskuToimitusNumber = 0;
@@ -172,7 +172,6 @@ public class Laskin implements ActionListener{
     public static void main(String[] args) {
         new Laskin();
     }
-
     public void plus(double x){
         if(lastEqual == true){
             x = 0;
@@ -347,7 +346,6 @@ public class Laskin implements ActionListener{
         } else if(e.getSource() == button0) {
             laskuToimitusString += "0";
         } else if(e.getSource() == buttonDot) {
-            // laskuToimitusString += ".0";
             lastDot = true;
         } else if(e.getSource() == buttonBack) {
             if(laskuToimitusString.length() <= 1){

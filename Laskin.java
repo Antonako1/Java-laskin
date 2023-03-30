@@ -18,7 +18,9 @@ public class Laskin implements ActionListener{
     static double currentNumber[] = {0};
     static double calculation = 0;
     static boolean firstT = true;
+    static double dotCount = 0;
     static boolean lastEqual = false;
+    static boolean lastDot = false;
     static double allCalc = 0;
     static boolean equals = false;
     static boolean lastPlus = false;
@@ -293,11 +295,37 @@ public class Laskin implements ActionListener{
         }  else if(lastSqrt == true) {
             sqrt(laskuToimitusNumber);
             lastSqrt = false;
-        } 
+        } else if(lastDot == true) {
+            String noll = "";
+            int nollN = 0;
+            dotCount = dotCount - 2;
+            for(int i = 0; i<dotCount;i++){
+                noll += "0";
+                System.out.println(noll);
+            }
+            nollN = Integer.parseInt(noll);
+            System.out.println(nollN);
+            int numberNoll = 10;
+            for(int i = 0; i<noll.length();i++){
+                System.out.println(noll.length());
+                numberNoll = numberNoll * 10;
+            }
+
+            laskuToimitusNumber = Integer.parseInt(laskuToimitusString);
+            laskuToimitusNumber = laskuToimitusNumber / numberNoll;
+            System.out.println(laskuToimitusNumber +" "+ laskuToimitusNumber +" "+ noll.length());
+            currentNumber[0] = laskuToimitusNumber;
+            calculation = currentNumber[0];
+            lastDot = false;
+            dotCount = 0;
+        }
         lastEqual = true;
         results.setText("Results: " + calculation);
     }
     public void actionPerformed(ActionEvent e) {
+        if(lastDot == true){
+            dotCount++;
+        }
         if(e.getSource() == button1){
             laskuToimitusString += "1";  
         } else if(e.getSource() == button2) {
@@ -319,8 +347,8 @@ public class Laskin implements ActionListener{
         } else if(e.getSource() == button0) {
             laskuToimitusString += "0";
         } else if(e.getSource() == buttonDot) {
-            // laskuToimitusString += ".";
-            // ei toimi en jaksa saada toimiin
+            // laskuToimitusString += ".0";
+            lastDot = true;
         } else if(e.getSource() == buttonBack) {
             if(laskuToimitusString.length() <= 1){
                 results.setText(calculation + "\n Error");
